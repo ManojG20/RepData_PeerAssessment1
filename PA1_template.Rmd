@@ -72,9 +72,29 @@ steps_per_interval[max(steps_per_interval$steps),1]
 Imputing a non-sophasticated method for NAs, Replacing NA's with zero
 
 ```{r imputing_missing, echo = TRUE}
-data[is.na(data$stpes)] <- 0
+steps <- data$steps
+steps[is.na(steps)] <- 0
+data$steps <- steps
 ```
 
+* calculating total number of steps taken per day
+```{r new_Aggregation, echo = TRUE}
+steps_taken <- aggregate(steps ~ date, data, sum)
+```
 
+* Lets see the new histogram of steps taken per day
+```{r new_Histogram, fig.width = 6, fig.height= 6, echo = TRUE}
+hist(steps_taken$steps, col = "green")
+```
+
+* **Mean** of steps taken per day
+```{r new_Mean, echo = TRUE}
+mean(steps_taken$steps)
+```
+
+* **Median** of steps taken per day
+```{r new_Median, echo = TRUE}
+median(steps_taken$steps)
+```
 
 ## Are there differences in activity patterns between weekdays and weekends?

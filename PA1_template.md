@@ -121,13 +121,43 @@ Imputing a non-sophasticated method for NAs, Replacing NA's with zero
 
 
 ```r
-data[is.na(data$stpes)] <- 0
+steps <- data$steps
+steps[is.na(steps)] <- 0
+data$steps <- steps
+```
+
+* calculating total number of steps taken per day
+
+```r
+steps_taken <- aggregate(steps ~ date, data, sum)
+```
+
+* Lets see the new histogram of steps taken per day
+
+```r
+hist(steps_taken$steps, col = "green")
+```
+
+![plot of chunk new_Histogram](figure/new_Histogram.png) 
+
+* **Mean** of steps taken per day
+
+```r
+mean(steps_taken$steps)
 ```
 
 ```
-## Warning: is.na() applied to non-(list or vector) of type 'NULL'
+## [1] 9354
 ```
 
+* **Median** of steps taken per day
 
+```r
+median(steps_taken$steps)
+```
+
+```
+## [1] 10395
+```
 
 ## Are there differences in activity patterns between weekdays and weekends?
