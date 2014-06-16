@@ -98,3 +98,27 @@ median(steps_taken$steps)
 ```
 
 ## Are there differences in activity patterns between weekdays and weekends?
+
+* Creating column weekday
+```{r}
+data$weekday <- as.factor(weekdays(data$date))
+```
+
+ * Creating one more column for weekday and weekend
+```{r}
+data$day <- NA
+data[data$weekday %in% c("Saturday", "Sunday"),5] <- "Weekend"
+data[!data$weekday %in% c("Saturday", "Sunday"),5] <- "Weekday"
+data$day <- as.factor(data$day)
+```
+
+* Comparison of activities of weekday and weekend
+```{r comparison_plot, fig.height=6, fig.width=6, echo = TRUE}
+library(lattice)
+panel.smoother <- function(x, y) {
+   panel.loess(x, y)  # show smoothed line 
+}
+data$interval <- as.numeric(data$interval)
+xyplot(steps ~ interval |day, data = data, layout = c(1,2), type = "l", ylab = "Number of steps")
+
+```
