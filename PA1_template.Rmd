@@ -112,7 +112,7 @@ data[!data$weekday %in% c("Saturday", "Sunday"),5] <- "Weekday"
 data$day <- as.factor(data$day)
 ```
 
-* Comparison of activities of weekday and weekend
+* Comparison plot which shows the activities of weekday and weekend
 ```{r comparison_plot, fig.height=6, fig.width=6, echo = TRUE}
 library(lattice)
 panel.smoother <- function(x, y) {
